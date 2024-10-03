@@ -1,15 +1,22 @@
 <?php
 
+use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Customer\MainCustomerController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Customer\AppointmentController as CustomerAppointmentController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/customer/home', [MainCustomerController::class, 'index'])
+    ->middleware(['auth', 'rolemiddleware:customer'])
+    ->name('customer.home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -17,4 +24,63 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::middleware('auth', 'verified','rolemiddleware:admin')->group(function () {
+    Route::controller(CategoryController::class)->group(function () {
+        Route::get('/categories', 'index')->name('categories.index');
+        Route::get('/categories/create', 'create')->name('categories.create');
+        Route::post('/categories', 'store')->name('categories.store');
+        Route::get('/categories/{category}/edit', 'edit')->name('categories.edit');
+        Route::put('/categories/{category}', 'update')->name('categories.update');
+        Route::delete('/categories/{category}', 'destroy')->name('categories.destroy');
+    });
+
+    Route::controller(UserController::class)->group(function () {
+        Route::get('/manage-user', 'index');
+        Route::get('/create-user', 'create');
+        Route::post('/create-user', 'store');
+        Route::put('/update-user/{id}', 'update')->name('users.edit');
+        Route::delete('/delete-user/{id}', 'destroy')->name('users.destroy');
+    });
+
+    Route::resource('products', ProductController::class);
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::controller(AppointmentController::class)->group(function () {
+        Route::get('/appointments/step-one', 'showStepOne')->name('appointments.step-one');
+        Route::post('/appointments/step-one', 'storeStepOne')->name('appointments.step.one.post');
+
+        Route::get('/appointments/step-two', 'showStepTwo')->name('appointments.step.two');
+        Route::post('/appointments/step-two', 'storeStepTwo')->name('appointments.step-two.post');
+
+        Route::get('/appointments/step-three', 'showStepThree')->name('appointments.step.three');
+        Route::post('/appointments/step-three', 'storeStepThree')->name('appointments.step.three.post');
+
+        Route::get('/appointments/confirmation', 'showConfirmation')->name('appointments.confirmation');
+        Route::post('/appointments/confirmation', 'storeConfirmation')->name('appointments.confirmation.post');
+
+        Route::get('appointments/index', 'index')->name('appointments.index');
+        Route::get('appointments/{appointment}', 'show');
+    });
+});
+
+Route::middleware('auth', 'verified', 'rolemiddleware:customer')->group(function () {
+    Route::controller(CustomerAppointmentController::class)->group(function () {
+        Route::get('/customer/appointments/step-one', 'showStepOne')->name('customer.appointments.step-one');
+        Route::post('/customer/appointments/step-one', 'storeStepOne')->name('customer.appointments.step.one.post');
+
+        Route::get('/customer/appointments/step-two', 'showStepTwo')->name('customer.appointments.step-two');
+        Route::post('/customer/appointments/step-two', 'storeStepTwo')->name('customer.appointments.step-two.post');
+
+        Route::get('/customer/appointments/step-three', 'showStepThree')->name('customer.appointments.step-three');
+        Route::post('/customer/appointments/step-three', 'storeStepThree')->name('customer.appointments.step.three.post');
+
+        Route::get('/customer/appointments/confirmation', 'showConfirmation')->name('customer.appointments.confirmation');
+        Route::post('/customer/appointments/confirmation', 'storeConfirmation')->name('customer.appointments.confirmation.post');
+
+        Route::get('/customer/appointments/index', 'index')->name('customer.appointments.index');
+        Route::get('/customer/appointments/{appointment}', 'show')->name('customer.appointments.show');
+    });
+});
+
+require __DIR__ . '/auth.php';

@@ -11,4 +11,11 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    server: {
+        host: 'capstone.test',
+        port: 3000,
+        watch: {
+            usePolling: true,
+        },
+    },
 });
