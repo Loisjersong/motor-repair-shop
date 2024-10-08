@@ -14,10 +14,10 @@
     <!-- ! remove cdn and resolve local -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
-    @vite(['resources/js/landing.js'])
+    @vite(['resources/js/main.js'])
 </head>
 
-<body>
+<body class="index-page">
     <header id="header" class="header fixed-top">
         <div class="branding d-flex align-items-center">
 
@@ -33,7 +33,7 @@
                         <li><a href="#hero" class="active">Home</a></li>
                         <li><a href="#about">About</a></li>
                         <li><a href="#services">Services</a></li>
-                        <li class="dropdown"><a href="#"><span>Account</span> <i
+                        <li class="dropdown"><a><span>Account</span> <i
                                     class="bi bi-chevron-down toggle-dropdown"></i></a>
                             <ul>
                                 <li><a href="{{ route('login') }}">Login</a></li>

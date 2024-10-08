@@ -1,9 +1,5 @@
 import './bootstrap';
 
-// import "jsvectormap/dist/css/jsvectormap.css";
-// import jsvector from node modules
-// import Livewire from 'livewire';
-
 import "flatpickr/dist/flatpickr.min.css";
 import "../css/satoshi.css";
 import "../css/app.css";
