@@ -1,11 +1,4 @@
 <x-app-layout>
-
-    <div class="rounded-sm border border-stroke bg-white px-5 pb-6 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 flex justify-end">
-        <x-a-btn href="/create-user">
-            Add User
-        </x-a-btn>
-    </div>
-
     <div
         class="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <h4 class="mb-6 text-xl font-bold text-black dark:text-white">
