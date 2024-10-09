@@ -82,13 +82,13 @@
                             <ul class="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="/appointments/index" :class="page === 'formElements' && '!text-white'">
-                                        Manage Appointments</a>
+                                        href="{{ route('appointments.step-one')}}" :class="page === 'formLayout' && '!text-white'">
+                                        Create Appointment</a>
                                 </li>
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('appointments.step-one')}}" :class="page === 'formLayout' && '!text-white'">
-                                        Create Appointment</a>
+                                        href="/appointments/index" :class="page === 'formElements' && '!text-white'">
+                                        Manage Appointments</a>
                                 </li>
                             </ul>
                         </div>
@@ -128,13 +128,13 @@
                             <ul class="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="/manage-user" :class="page === 'formElements' && '!text-white'">
-                                        Manage Users</a>
+                                        href="/create-user" :class="page === 'formLayout' && '!text-white'">
+                                        Add Users</a>
                                 </li>
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="/create-user" :class="page === 'formLayout' && '!text-white'">
-                                        Add Users</a>
+                                        href="/manage-user" :class="page === 'formElements' && '!text-white'">
+                                        Manage Users</a>
                                 </li>
                             </ul>
                         </div>
@@ -190,13 +190,13 @@
                             <ul class="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                       href="{{ route('products.index') }}"
-                                       :class="page === 'Manage Products' ? '!text-white' : ''">Manage Products</a>
+                                       href="{{ route('products.create') }}"
+                                       :class="page === 'Add Products' ? '!text-white' : ''">Add Products</a>
                                 </li>
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                       href="{{ route('products.create') }}"
-                                       :class="page === 'Add Products' ? '!text-white' : ''">Add Products</a>
+                                       href="{{ route('products.index') }}"
+                                       :class="page === 'Manage Products' ? '!text-white' : ''">Manage Products</a>
                                 </li>
                             </ul>
                         </div>
