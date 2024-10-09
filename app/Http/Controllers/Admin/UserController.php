@@ -91,4 +91,10 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'User added successfully');
     }
+
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        return view('admin.users.show', compact('user'));
+    }
 }
