@@ -35,11 +35,12 @@ Route::middleware('auth', 'verified','rolemiddleware:admin')->group(function () 
     });
 
     Route::controller(UserController::class)->group(function () {
-        Route::get('/manage-user', 'index');
-        Route::get('/create-user', 'create');
-        Route::post('/create-user', 'store');
-        Route::put('/update-user/{id}', 'update')->name('users.edit');
-        Route::delete('/delete-user/{id}', 'destroy')->name('users.destroy');
+        Route::get('/users', 'index')->name('users.index');
+        Route::get('/users/create', 'create')->name('users.create');
+        Route::post('/users', 'store')->name('users.store');
+        Route::get('/users/{id}/edit', 'edit')->name('users.edit');
+        Route::put('/users/{id}', 'update')->name('users.update');
+        Route::delete('/users/{id}', 'destroy')->name('users.destroy');
     });
 
     Route::resource('products', ProductController::class);
