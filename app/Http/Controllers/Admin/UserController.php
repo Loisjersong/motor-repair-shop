@@ -26,14 +26,34 @@ class UserController extends Controller
 
     public function edit($id)
     {
+        $roles = Role::all();
         $user = User::findOrFail($id);
-        return view('admin.users.edit', compact('user'));
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        $user->update($request->all());
+
+        $request->validate([
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'phone' => ['required', 'regex:/^(09\d{9}|63\d{10})$/'],
+            'date_of_birth' => ['required', 'date', 'before:today', 'after:1900-01-01'],
+            'role_id' => ['required', 'exists:roles,id']
+        ]);
+
+        $data = $request->all();
+
+        if (empty($data['password'])) {
+            unset($data['password']);
+        } else {
+            $data['password'] = Hash::make($data['password']);
+        }
+
+        $user->update($data);
+
         return redirect()->route('users.index')->with('success', 'User updated successfully');
     }
 
@@ -57,8 +77,6 @@ class UserController extends Controller
             'role_id' => ['required', 'exists:roles,id']
         ]);
 
-        // dd($request->all());
-
         $user = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -68,8 +86,6 @@ class UserController extends Controller
             'date_of_birth' => $request->date_of_birth,
             'role_id' => $request->role_id,
         ]);
-
-        // dd($user);
 
         event(new Registered($user));
 
