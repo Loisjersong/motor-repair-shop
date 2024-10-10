@@ -13,6 +13,7 @@
 
     <!-- ! remove cdn and resolve local -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @vite(['resources/js/main.js'])
 </head>
@@ -298,7 +299,6 @@
         </section><!-- /Call To Action Section -->
 
 
-        <!-- ! implement sending message-->
         <!-- Contact Section -->
         <section id="contact" class="contact section">
 
@@ -350,8 +350,9 @@
                     </div><!-- End Google Maps -->
 
                     <div class="col-lg-6">
-                        <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up"
+                        <form action="{{ route('contact.send')}}" method="post" class="php-email-form" data-aos="fade-up"
                             data-aos-delay="400">
+                            @csrf
                             <div class="row gy-4">
 
                                 <div class="col-md-6">
@@ -406,6 +407,21 @@
     <!-- Scroll Top -->
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
+
+
+            @if (session('success'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: '{{ session("success") }}',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                });
+            </script>
+        @endif
 </body>
 
 </html>

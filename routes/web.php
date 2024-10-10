@@ -8,6 +8,7 @@ use App\Http\Controllers\Customer\MainCustomerController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\ContactSubmissionController;
 use App\Http\Controllers\Customer\AppointmentController as CustomerAppointmentController;
 
 Route::get('/', function () {
@@ -84,5 +85,7 @@ Route::middleware('auth', 'verified', 'rolemiddleware:customer')->group(function
         Route::get('/customer/appointments/{appointment}', 'show')->name('customer.appointments.show');
     });
 });
+
+Route::post('/contact', [ContactSubmissionController::class, 'send'])->name('contact.send');
 
 require __DIR__ . '/auth.php';
