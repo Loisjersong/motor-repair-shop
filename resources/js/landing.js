@@ -30,22 +30,22 @@
      * Hide mobile nav on same-page/hash links
      */
     document.querySelectorAll('#navmenu a').forEach(navmenu => {
-        navmenu.addEventListener('click', () => {
-            if (document.querySelector('.mobile-nav-active')) {
+        navmenu.addEventListener('click', (e) => {
+            if (document.querySelector('.mobile-nav-active') && !e.target.closest('.dropdown')) {
                 mobileNavToogle();
             }
         });
-
     });
 
     /**
      * Toggle mobile nav dropdowns
      */
-    document.querySelectorAll('.navmenu .toggle-dropdown').forEach(navmenu => {
-        navmenu.addEventListener('click', function (e) {
+    document.querySelectorAll('.navmenu .toggle-dropdown').forEach(toggle => {
+        toggle.addEventListener('click', function (e) {
             e.preventDefault();
-            this.parentNode.classList.toggle('active');
-            this.parentNode.nextElementSibling.classList.toggle('dropdown-active');
+            const parentLi = this.closest('.dropdown');
+            parentLi.classList.toggle('active');
+            parentLi.querySelector('ul').classList.toggle('dropdown-active');
             e.stopImmediatePropagation();
         });
     });

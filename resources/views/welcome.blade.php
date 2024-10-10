@@ -34,8 +34,8 @@
                         <li><a href="#hero" class="active">Home</a></li>
                         <li><a href="#about">About</a></li>
                         <li><a href="#services">Services</a></li>
-                        <li class="dropdown"><a href=""><span>Account</span> <i
-                                    class="bi bi-chevron-down toggle-dropdown"></i></a>
+                        <li class="dropdown">
+                            <a class="toggle-dropdown"><span>Account</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                             <ul>
                                 <li><a href="{{ route('login') }}">Login</a></li>
                                 <li><a href="{{ route('register') }}">Register</a></li>
@@ -408,6 +408,9 @@
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
 
+    <!-- Preloader -->
+  <!-- <div id="preloader"></div> -->
+
 
             @if (session('success'))
             <script>
@@ -422,6 +425,7 @@
                 });
             </script>
         @endif
+
 </body>
 
 </html>
