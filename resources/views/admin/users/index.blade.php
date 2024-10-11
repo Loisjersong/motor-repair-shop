@@ -1,15 +1,11 @@
 <x-app-layout>
-    <div
-        class="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1"
-    >
+    <div class="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <h4 class="mb-6 text-xl font-bold text-black dark:text-white">
             All Users
         </h4>
 
         <div class="flex flex-col">
-            <div
-                class="grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-5"
-            >
+            <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 rounded-sm bg-gray-2 dark:bg-meta-4">
                 <div class="p-2.5 text-center xl:p-5">
                     <h5 class="text-sm font-medium uppercase xsm:text-base">
                         #
@@ -37,10 +33,8 @@
                 </div>
             </div>
 
-            <div
-                class="grid grid-cols-3 border-b border-stroke dark:border-strokedark sm:grid-cols-5"
-            >
-                @foreach ($users as $user)
+            @foreach ($users as $user)
+            <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 border-b border-stroke dark:border-strokedark">
                 <div class="flex items-center justify-center p-2.5 xl:p-5">
                     <p class="font-medium text-black dark:text-white">
                         {{ $user->id }}
@@ -79,19 +73,18 @@
                         </svg>
                     </a>
 
-                    <a class="hover:text-primary" href="{{ route('users.destroy', $user->id) }}" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $user->id }}').submit();">
+                    <a class="hover:text-primary" href="{{ route('users.destroy', $user->id) }}" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $user->id }}').submit();"></a>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current">
                             <path d="M5 20a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8h2V6h-4V4a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H3v2h2zM9 4h6v2H9zM8 8h9v12H7V8z"></path>
                             <path d="M9 10h2v8H9zm4 0h2v8h-2z"></path>
                         </svg>
                     </a>
-                    <form id="delete-form-{{ $user->id }}" action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: none"></form>
+                    <form id="delete-form-{{ $user->id }}" action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: none">
                         @csrf @method('DELETE')
                     </form>
                 </div>
-
-                @endforeach
             </div>
+            @endforeach
         </div>
     </div>
 </x-app-layout>
