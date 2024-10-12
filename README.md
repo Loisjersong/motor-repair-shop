@@ -29,3 +29,4 @@ All commands are run from the root of the project, from a terminal:
 | `npm run dev`             | Compiles assets for development                        |
 | `php artisan serve`       | Starts the local development server at `localhost:8000`|
 
+[![Laravel Forge Site Deployment Status](https://img.shields.io/endpoint?url=https%3A%2F%2Fforge.laravel.com%2Fsite-badges%2F7b31236d-ee9a-4257-b82b-6307bb0a94ab&style=flat-square)](https://forge.laravel.com/servers/849221/sites/2490562)
