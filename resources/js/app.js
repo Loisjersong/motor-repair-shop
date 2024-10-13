@@ -7,11 +7,6 @@ import "../css/app.css";
 import Alpine from "alpinejs";
 import persist from "@alpinejs/persist";
 import flatpickr from "flatpickr";
-import chart01 from "./components/chart-01";
-import chart02 from "./components/chart-02";
-import chart03 from "./components/chart-03";
-import chart04 from "./components/chart-04";
-import map01 from "./components/map-01";
 
 Alpine.plugin(persist);
 window.Alpine = Alpine;
@@ -50,15 +45,3 @@ flatpickr(".form-datepicker", {
   nextArrow:
     '<svg class="fill-current" width="7" height="11" viewBox="0 0 7 11"><path d="M1.4 10.8L0 9.4l4-4-4-4L1.4 0l5.4 5.4z" /></svg>',
 });
-
-// Document Loaded
-document.addEventListener("DOMContentLoaded", () => {
-  chart01();
-  chart02();
-  chart03();
-  chart04();
-  map01();
-});
-
-// Initialize Livewire
-// Livewire.start();
