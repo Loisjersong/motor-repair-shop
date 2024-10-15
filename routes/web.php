@@ -26,6 +26,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth', 'verified','rolemiddleware:admin')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::controller(CategoryController::class)->group(function () {
         Route::get('/categories', 'index')->name('categories.index');
         Route::get('/categories/create', 'create')->name('categories.create');
@@ -53,17 +55,15 @@ Route::middleware('auth', 'verified','rolemiddleware:admin')->group(function () 
     Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
     Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
     Route::controller(AppointmentController::class)->group(function () {
         Route::get('/appointments/step-one', 'showStepOne')->name('appointments.step-one');
-        Route::post('/appointments/step-one', 'storeStepOne')->name('appointments.step.one.post');
+        Route::post('/appointments/step-one', 'storeStepOne')->name('appointments.step-one.post');
 
-        Route::get('/appointments/step-two', 'showStepTwo')->name('appointments.step.two');
+        Route::get('/appointments/step-two', 'showStepTwo')->name('appointments.step-two');
         Route::post('/appointments/step-two', 'storeStepTwo')->name('appointments.step-two.post');
 
-        Route::get('/appointments/step-three', 'showStepThree')->name('appointments.step.three');
-        Route::post('/appointments/step-three', 'storeStepThree')->name('appointments.step.three.post');
+        Route::get('/appointments/step-three', 'showStepThree')->name('appointments.step-three');
+        Route::post('/appointments/step-three', 'storeStepThree')->name('appointments.step-three.post');
 
         Route::get('/appointments/confirmation', 'showConfirmation')->name('appointments.confirmation');
         Route::post('/appointments/confirmation', 'storeConfirmation')->name('appointments.confirmation.post');

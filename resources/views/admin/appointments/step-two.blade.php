@@ -8,7 +8,7 @@
             </h3>
         </div>
 
-        <form action="{{ route('appointments.step.two.post') }}" method="post">
+        <form action="{{ route('appointments.step-two.post') }}" method="post">
             @csrf
             <div class="p-6.5">
                 <div class="mb-4.5">

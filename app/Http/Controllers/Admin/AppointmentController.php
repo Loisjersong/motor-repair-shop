@@ -39,7 +39,7 @@ class AppointmentController extends Controller
 
 
 
-        return redirect()->route('appointments.step.two');
+        return redirect()->route('appointments.step-two');
     }
 
     // Show Step 2: Services

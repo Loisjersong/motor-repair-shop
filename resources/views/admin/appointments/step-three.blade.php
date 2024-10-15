@@ -7,7 +7,7 @@
             </h3>
         </div>
 
-        <form action="{{ route('appointments.step.three.post') }}" method="POST">
+        <form action="{{ route('appointments.step-three.post') }}" method="POST">
             @csrf
             <div class="p-6.5">
                 <div class="mb-4.5">
