@@ -5,8 +5,8 @@
 >
     <!-- SIDEBAR HEADER -->
     <div class="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
-        <a href="index.html">
-            <img src="#" alt="Logo" />
+        <a href="/">
+            <h1 class="rounded-sm px-4 py-2 font-medium text-xl text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4">4M Motorshop</h1>
         </a>
 
         <button
