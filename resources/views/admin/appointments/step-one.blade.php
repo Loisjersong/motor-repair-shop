@@ -25,7 +25,10 @@
 
                     <div>
                         <x-form-label for="transmission">Transmission</x-form-label>
-                        <x-form-input type="text" name="transmission" id="transmission"></x-form-input>
+                        <x-form-select name="transmission" id="transmission">
+                            <option value="CVT">CVT</option>
+                            <option value="Chain Drive">Chain Drive</option>
+                        </x-form-select>
                         <x-input-error :messages="$errors->get('transmission')" ></x-input-error>
                     </div>
 

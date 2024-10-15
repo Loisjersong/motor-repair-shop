@@ -16,4 +16,14 @@ class Vehicle extends Model
         'transmission',
         'odometer',
     ];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
 }

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
             $table->string('model');
             $table->string('year');
-            $table->enum('transmission', ['Automatic', 'Manual', 'CVT']);
+            $table->string('transmission');
             $table->string('odometer');
             $table->timestamps();
         });

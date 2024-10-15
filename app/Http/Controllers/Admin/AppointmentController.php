@@ -4,15 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
+use App\Models\Customer;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
 {
     public function index() {
-        $appointments = Appointment::all();
+        $appointments = Appointment::with('customer', 'vehicle')->get(); // Eager load relationships
         return view('admin.appointments.index', ['appointments' => $appointments]);
     }
-
 
     public function show(Appointment $appointment) {
         return view('admin.appointments.show', ['appointment' => $appointment]);
@@ -32,12 +33,10 @@ class AppointmentController extends Controller
             'transmission' => 'required|string',
             'odometer' => 'required|string',
         ]);
-        $validatedData['user_id'] = 1;
+
         $appointment = $request->session()->get('appointment', []);
         $appointment = array_merge($appointment, $validatedData);
         $request->session()->put('appointment', $appointment);
-
-
 
         return redirect()->route('appointments.step-two');
     }
@@ -62,7 +61,7 @@ class AppointmentController extends Controller
         return redirect('appointments/step-three');
     }
 
-    // Show Step 3: Details
+    // Show Step 3: Customer Details
     public function showStepThree(Request $request) {
         $appointment = $request->session()->get('appointment', []);
         return view('admin.appointments.step-three', ['appointment' => $appointment]);
@@ -75,7 +74,7 @@ class AppointmentController extends Controller
             'last_name' => 'required|string',
             'phone' => 'required|string',
             'email' => 'required|email',
-            'address' => 'required|string',
+            'address' => 'nullable|string',
             'appointment_date' => 'required|date',
         ]);
 
@@ -94,14 +93,41 @@ class AppointmentController extends Controller
 
     // Store Final Data and Save to Database
     public function storeConfirmation(Request $request) {
-        $appointment = $request->session()->get('appointment');
+        $appointmentData = $request->session()->get('appointment');
 
-        if ($appointment) {
-            // Save to the database
-            Appointment::create($appointment); // Ensure $appointment matches the model fillable attributes
+
+
+        if ($appointmentData) {
+            // Create Customer
+            $customer = Customer::create([
+                'first_name' => $appointmentData['first_name'],
+                'last_name' => $appointmentData['last_name'],
+                'phone' => $appointmentData['phone'],
+                'email' => $appointmentData['email'],
+                'address' => $appointmentData['address'],
+            ]);
+
+            // Create Vehicle
+            $vehicle = Vehicle::create([
+                'customer_id' => $customer->id,
+                'model' => $appointmentData['model'],
+                'year' => $appointmentData['year'],
+                'transmission' => $appointmentData['transmission'],
+                'odometer' => $appointmentData['odometer'],
+            ]);
+
+            // Create Appointment
+            Appointment::create([
+                'user_id' => 1,
+                'customer_id' => $customer->id,
+                'vehicle_id' => $vehicle->id,
+                'services' => $appointmentData['services'],
+                'note' => $appointmentData['note'],
+                'appointment_date' => $appointmentData['appointment_date'],
+            ]);
 
             // Forget session data
-            $request->session()->forget('appointment');
+            // $request->session()->forget('appointment');
 
             return redirect()->route('appointments.index')->with('success', 'Appointment booked successfully.');
         }
