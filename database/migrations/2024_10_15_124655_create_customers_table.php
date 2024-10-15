@@ -11,23 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('appointments', function (Blueprint $table) {
+        Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->default(1);
-            $table->string('model');
-            $table->string('year');
-            $table->string('transmission');
-            $table->string('odometer');
-
             $table->string('first_name');
             $table->string('last_name');
             $table->string('phone');
             $table->string('email');
-            $table->string('address');
-            $table->string('note')->nullable();
-            $table->date('appointment_date');
-
-            $table->string('services');
+            $table->string('address')->nullable();
             $table->timestamps();
         });
     }
@@ -37,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('appointments');
+        Schema::dropIfExists('customers');
     }
 };
