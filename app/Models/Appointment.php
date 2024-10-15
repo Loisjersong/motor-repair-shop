@@ -19,6 +19,10 @@ class Appointment extends Model
         'status',
     ];
 
+    protected $casts = [
+        'appointment_date' => 'datetime',
+    ];
+
     public function customer()
     {
         return $this->belongsTo(Customer::class);

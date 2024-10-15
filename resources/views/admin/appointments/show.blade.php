@@ -15,7 +15,7 @@
 
                 <div class="w-full xl:w-1/2">
                     <x-form-label>Status</x-form-label>
-                    <x-form-input value="" readonly></x-form-input>
+                    <x-form-input value="{{ $appointment->status }}" readonly></x-form-input>
                 </div>
             </div>
 
@@ -45,25 +45,25 @@
             <div class="mb-4.5 flex flex-col gap-6 xl:flex-row">
                 <div class="w-full xl:w-1/2">
                     <x-form-label>Full Name</x-form-label>
-                    <x-form-input value="{{ $appointment->first_name }} {{ $appointment->last_name }}"
+                    <x-form-input value="{{ $appointment->customer->first_name }} {{ $appointment->customer->last_name }}"
                         readonly></x-form-input>
                 </div>
 
                 <div class="w-full xl:w-1/2">
                     <x-form-label>Email</x-form-label>
-                    <x-form-input value="{{ $appointment->email }}" readonly></x-form-input>
+                    <x-form-input value="{{ $appointment->customer->email }}" readonly></x-form-input>
                 </div>
             </div>
 
             <div class="mb-4.5 flex flex-col gap-6 xl:flex-row">
                 <div class="w-full xl:w-1/2">
                     <x-form-label>Phone</x-form-label>
-                    <x-form-input value="{{ $appointment->phone }}" readonly></x-form-input>
+                    <x-form-input value="{{ $appointment->customer->phone }}" readonly></x-form-input>
                 </div>
 
                 <div class="w-full xl:w-1/2">
                     <x-form-label>Address</x-form-label>
-                    <x-form-input value="{{ $appointment->address }}" readonly></x-form-input>
+                    <x-form-input value="{{ $appointment->customer->address }}" readonly></x-form-input>
                 </div>
             </div>
         </div>
@@ -78,24 +78,24 @@
             <div class="mb-4.5 flex flex-col gap-6 xl:flex-row">
                 <div class="w-full xl:w-1/2">
                     <x-form-label>Model</x-form-label>
-                    <x-form-input value="{{ $appointment->model }}" readonly></x-form-input>
+                    <x-form-input value="{{ $appointment->vehicle->model }}" readonly></x-form-input>
                 </div>
 
                 <div class="w-full xl:w-1/2">
                     <x-form-label>Year</x-form-label>
-                    <x-form-input value="{{ $appointment->year }}" readonly></x-form-input>
+                    <x-form-input value="{{ $appointment->vehicle->year }}" readonly></x-form-input>
                 </div>
             </div>
 
             <div class="mb-4.5 flex flex-col gap-6 xl:flex-row">
                 <div class="w-full xl:w-1/2">
                     <x-form-label>Transmission</x-form-label>
-                    <x-form-input value="{{ $appointment->transmission }}" readonly></x-form-input>
+                    <x-form-input value="{{ $appointment->vehicle->transmission }}" readonly></x-form-input>
                 </div>
 
                 <div class="w-full xl:w-1/2">
                     <x-form-label>Odometer</x-form-label>
-                    <x-form-input value="{{ $appointment->odometer }}" readonly></x-form-input>
+                    <x-form-input value="{{ $appointment->vehicle->odometer }}" readonly></x-form-input>
                 </div>
             </div>
         </div>

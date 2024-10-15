@@ -46,20 +46,19 @@
                     </div>
 
                     <div class="flex items-center justify-center p-2.5 xl:p-5">
-                        <p class="font-medium text-black dark:text-white">{{ $appointment->last_name }}</p>,
-                        {{ $appointment->first_name }}
+                        <p class="font-medium text-black dark:text-white">{{ $appointment->customer->first_name }} {{ $appointment->customer->last_name }}</p>
                     </div>
 
                     <div class="flex items-center justify-center p-2.5 xl:p-5">
-                        <p class="font-medium text-black dark:text-white">{{ $appointment->email }}</p>
+                        <p class="font-medium text-black dark:text-white">{{ $appointment->customer->email }}</p>
                     </div>
 
                     <div class="flex items-center justify-center p-2.5 xl:p-5">
-                        <p class="font-medium text-black dark:text-white">{{ $appointment->phone }}</p>
+                        <p class="font-medium text-black dark:text-white">{{ $appointment->customer->phone }}</p>
                     </div>
 
                     <div class="flex items-center justify-center p-2.5 xl:p-5">
-                        <p class="font-medium text-black dark:text-white">status</p>
+                        <p class="font-medium text-black dark:text-white">{{ $appointment->status }}</p>
                     </div>
 
                     <div class="flex items-center justify-center p-2.5 xl:p-5">
