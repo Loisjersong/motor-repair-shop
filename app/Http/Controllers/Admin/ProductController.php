@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
+use App\Models\ProductHistory;
 
 class ProductController extends Controller
 {
@@ -119,5 +120,11 @@ class ProductController extends Controller
         }
         $product->delete();
         return redirect('/products ');
+    }
+
+    public function showProductHistory()
+    {
+        $productHistories = ProductHistory::all();
+        return view('admin.products.product-history', compact('productHistories'));
     }
 }

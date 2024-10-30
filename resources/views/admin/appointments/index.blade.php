@@ -65,6 +65,47 @@
                         <a class="hover:text-primary" href="/appointments/{{$appointment['id']}}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current"><path d="M12 9a3.02 3.02 0 0 0-3 3c0 1.642 1.358 3 3 3 1.641 0 3-1.358 3-3 0-1.641-1.359-3-3-3z"></path><path d="M12 5c-7.633 0-9.927 6.617-9.948 6.684L1.946 12l.105.316C2.073 12.383 4.367 19 12 19s9.927-6.617 9.948-6.684l.106-.316-.105-.316C21.927 11.617 19.633 5 12 5zm0 12c-5.351 0-7.424-3.846-7.926-5C4.578 10.842 6.652 7 12 7c5.351 0 7.424 3.846 7.926 5-.504 1.158-2.578 5-7.926 5z"></path></svg>
                         </a>
+
+                        <a class="hover:text-primary ml-2" href="/appointments/{{$appointment['id']}}/edit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current">
+                                <path d="M19.045 7.401c.378-.378.586-.88.586-1.414s-.208-1.036-.586-1.414l-1.586-1.586c-.378-.378-.88-.586-1.414-.586s-1.036.208-1.413.585L4 13.585V18h4.413L19.045 7.401zm-3-3 1.587 1.585-1.59 1.584-1.586-1.585 1.589-1.584zM6 16v-1.585l7.04-7.018 1.586 1.586L7.587 16H6zm-2 4h16v2H4z"></path>
+                            </svg>
+                        </a>
+
+                        <div class="relative" x-data="{ dropdownOpen: false }" @click.outside="dropdownOpen = false">
+                            <a class="flex items-center gap-4" href="#" @click.prevent="dropdownOpen = ! dropdownOpen">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path><path d="M11 11h2v6h-2zm0-4h2v2h-2z"></path></svg>
+                            </a>
+
+                            <!-- Dropdown Start -->
+                            <div x-show="dropdownOpen" class="absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                                <form method="POST" action="{{ route('appointments.updateStatus', ['appointment' => $appointment->id]) }}" class="inline">
+                                    @csrf
+                                    @method('POST')
+                                    <input type="hidden" name="status" value="pending">
+                                    <button type="submit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Pending</button>
+                                </form>
+                                <form method="POST" action="{{ route('appointments.updateStatus', ['appointment' => $appointment->id]) }}" class="inline">
+                                    @csrf
+                                    @method('POST')
+                                    <input type="hidden" name="status" value="approved">
+                                    <button type="submit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Approved</button>
+                                </form>
+                                <form method="POST" action="{{ route('appointments.updateStatus', ['appointment' => $appointment->id]) }}" class="inline">
+                                    @csrf
+                                    @method('POST')
+                                    <input type="hidden" name="status" value="completed">
+                                    <button type="submit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Completed</button>
+                                </form>
+                                <form method="POST" action="{{ route('appointments.updateStatus', ['appointment' => $appointment->id]) }}" class="inline">
+                                    @csrf
+                                    @method('POST')
+                                    <input type="hidden" name="status" value="canceled">
+                                    <button type="submit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Canceled</button>
+                                </form>
+                            </div>
+                        </div>
+                <!-- Dropdown End -->
                     </div>
 
                 @endforeach

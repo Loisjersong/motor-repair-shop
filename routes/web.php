@@ -54,6 +54,7 @@ Route::middleware('auth', 'verified','rolemiddleware:admin')->group(function () 
     Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
     Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+    Route::get('/product-history/', [ProductController::class, 'showProductHistory'])->name('products.history');
 
     Route::controller(AppointmentController::class)->group(function () {
         Route::get('/appointments/step-one', 'showStepOne')->name('appointments.step-one');
@@ -70,6 +71,8 @@ Route::middleware('auth', 'verified','rolemiddleware:admin')->group(function () 
 
         Route::get('appointments/index', 'index')->name('appointments.index');
         Route::get('appointments/{appointment}', 'show');
+        Route::get('appointments/{appointment}/edit', 'edit')->name('appointments.edit');
+        Route::post('/appointments/{appointment}/status', [AppointmentController::class, 'updateStatus'])->name('appointments.updateStatus');
     });
 });
 

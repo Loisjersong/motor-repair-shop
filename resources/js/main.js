@@ -10,3 +10,4 @@ import "../js/swiper-bundle.min.js";
 import "../js/imagesloaded.pkgd.min";
 import "../js/isotope.pkgd.min";
 import "../js/landing.js";
+import 'flowbite';

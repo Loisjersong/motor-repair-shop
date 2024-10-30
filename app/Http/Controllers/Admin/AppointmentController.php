@@ -19,6 +19,53 @@ class AppointmentController extends Controller
         return view('admin.appointments.show', ['appointment' => $appointment]);
     }
 
+    public function edit(Appointment $appointment) {
+        return view('admin.appointments.edit', ['appointment' => $appointment]);
+    }
+
+    public function update(Request $request, Appointment $appointment) {
+        $validatedData = $request->validate([
+            'model' => 'required|string',
+            'year' => 'required|string',
+            'transmission' => 'required|string',
+            'odometer' => 'required|string',
+            'services' => 'required|string',
+            'note' => 'nullable|string',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'phone' => 'required|string',
+            'email' => 'required|email',
+            'address' => 'nullable|string',
+            'appointment_date' => 'required|date',
+        ]);
+
+        // Update Customer
+        $appointment->customer->update([
+            'first_name' => $validatedData['first_name'],
+            'last_name' => $validatedData['last_name'],
+            'phone' => $validatedData['phone'],
+            'email' => $validatedData['email'],
+            'address' => $validatedData['address'],
+        ]);
+
+        // Update Vehicle
+        $appointment->vehicle->update([
+            'model' => $validatedData['model'],
+            'year' => $validatedData['year'],
+            'transmission' => $validatedData['transmission'],
+            'odometer' => $validatedData['odometer'],
+        ]);
+
+        // Update Appointment
+        $appointment->update([
+            'services' => $validatedData['services'],
+            'note' => $validatedData['note'],
+            'appointment_date' => $validatedData['appointment_date'],
+        ]);
+
+        return redirect()->route('appointments.index')->with('success', 'Appointment updated successfully.');
+    }
+
     // Show Step 1: Vehicle Info
     public function showStepOne(Request $request) {
         $appointment = $request->session()->get('appointment', []);
@@ -133,5 +180,14 @@ class AppointmentController extends Controller
         }
 
         return redirect()->route('appointments.step-one');
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $appointment = Appointment::findOrFail($id);
+        $appointment->status = $request->input('status');
+        $appointment->save();
+
+        return redirect()->back()->with('status', 'Appointment status updated successfully!');
     }
 }
