@@ -37,7 +37,7 @@
                         class="grid grid-cols-3 {{ $loop->last ? '' : 'border-b border-stroke dark:border-strokedark' }} sm:grid-cols-3">
                         <div class="flex r gap-3 p-2.5 xl:p-5">
                             <p class="hidden font-medium text-black dark:text-white sm:block">
-                                {{ $index + 1 }}
+                                {{$categories->firstItem() + $index }}
                             </p>
                         </div>
 
@@ -73,6 +73,11 @@
                     </div>
                 @endforeach
             </div>
+
+            <div class="mt-6">
+                {{ $categories->links() }}
+            </div>
+
         </div>
     </div>
 </x-app-layout>
