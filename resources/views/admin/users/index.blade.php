@@ -34,7 +34,7 @@
             </div>
 
             @foreach ($users as $index => $user)
-            <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 border-b border-stroke dark:border-strokedark">
+            <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 {{ $loop->last ? '' : 'border-b border-stroke dark:border-strokedark' }}">
                 <div class="flex items-center justify-center p-2.5 xl:p-5">
                     <p class="font-medium text-black dark:text-white">
                         {{ $users->firstItem() + $index }}
