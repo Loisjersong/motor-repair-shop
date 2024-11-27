@@ -29,8 +29,8 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-3 border-b border-stroke dark:border-strokedark sm:grid-cols-7">
-                @foreach ($appointments as $appointment)
+            @foreach ($appointments as $index => $appointment)
+            <div class="grid grid-cols-3 sm:grid-cols-7  {{ $loop->last ? '' : 'border-b border-stroke dark:border-strokedark' }}">
                     <div class="flex r items-center justify-center p-2.5 xl:p-5">
                         <p class="hidden font-medium text-black dark:text-white sm:block">
                             {{ $appointment->id }}
@@ -57,8 +57,24 @@
                         <p class="font-medium text-black dark:text-white">{{ $appointment->customer->phone }}</p>
                     </div>
 
-                    <div class="flex items-center justify-center p-2.5 xl:p-5">
-                        <p class="font-medium text-black dark:text-white">{{ $appointment->status }}</p>
+                    <div class="flex items-center justify-center p-2.5 xl:p-5 ">
+                        @if ($appointment->status === 'pending')
+                            <span class="inline-block rounded-full px-3 py-1 text-sm font-medium text-yellow-500 bg-yellow-100 dark:bg-yellow-900">
+                                {{ $appointment->status }}
+                            </span>
+                        @elseif ($appointment->status === 'approved')
+                            <span class="inline-block rounded-full px-3 py-1 text-sm font-medium text-green-500 bg-green-100 dark:bg-green-900">
+                                {{ $appointment->status }}
+                            </span>
+                        @elseif ($appointment->status === 'completed')
+                            <span class="inline-block rounded-full px-3 py-1 text-sm font-medium text-blue-500 bg-blue-100 dark:bg-blue-900">
+                                {{ $appointment->status }}
+                            </span>
+                        @elseif ($appointment->status === 'canceled')
+                            <span class="inline-block rounded-full px-3 py-1 text-sm font-medium text-red-500 bg-red-100 dark:bg-red-900">
+                                {{ $appointment->status }}
+                            </span>
+                        @endif
                     </div>
 
                     <div class="flex items-center justify-center p-2.5 xl:p-5">
@@ -108,9 +124,13 @@
                 <!-- Dropdown End -->
                     </div>
 
-                @endforeach
             </div>
+            @endforeach
 
+        </div>
+
+        <div class="mt-6">
+            {{ $appointments->links() }}
         </div>
     </div>
 </x-app-layout>

@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class AppointmentController extends Controller
 {
     public function index() {
-        $appointments = Appointment::with('customer', 'vehicle')->get(); // Eager load relationships
+        $appointments = Appointment::with('customer', 'vehicle')->paginate(10); // Eager load relationships
         return view('admin.appointments.index', ['appointments' => $appointments]);
     }
 
