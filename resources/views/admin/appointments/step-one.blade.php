@@ -1,6 +1,7 @@
 <x-app-layout>
+    <x-appointment-stepper :currentStep="1" />
+
     <x-container>
-        <x-appointment-stepper :currentStep="1" />
         <div class="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
             <h3 class="font-medium text-black dark:text-white">
                 Vehicle Info
@@ -9,7 +10,7 @@
 
         <form action="{{ route('appointments.step-one.post') }}" method="POST">
             @csrf
-            <div class="p-6.5">
+            <div class="px-6.5 pt-6.5">
                 <div class="mb-4.5">
                     <div>
                         <x-form-label for="model">Model</x-form-label>
@@ -46,7 +47,9 @@
                         <x-input-error :messages="$errors->get('odometer')" ></x-input-error>
                     </div>
 
-                    <x-button type="submit" class="w-full">Next</x-button>
+                    <button class="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90" type="submit">
+                        Next
+                    </button>
                 </div>
             </div>
         </form>

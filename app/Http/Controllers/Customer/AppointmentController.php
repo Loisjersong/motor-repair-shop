@@ -6,15 +6,39 @@ use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Vehicle;
+use App\Models\Customer;
 
 class AppointmentController extends Controller
 {
     public function index() {
         $user = Auth::user();
-
-        $appointments = Appointment::where('user_id', $user->id)->get();
+        $appointments = Appointment::with(['customer', 'vehicle'])
+                            ->where('user_id', $user->id)
+                            ->where('status', 'pending')
+                            ->get();
 
         return view('customer.appointments.index', compact('appointments'));
+    }
+
+    public function approved() {
+        $user = Auth::user();
+        $appointments = Appointment::with(['customer', 'vehicle'])
+                            ->where('user_id', $user->id)
+                            ->where('status', 'approved')
+                            ->get();
+
+        return view('customer.appointments.upcoming-appointments', compact('appointments'));
+    }
+
+    public function completed() {
+        $user = Auth::user();
+        $appointments = Appointment::with(['customer', 'vehicle'])
+                            ->where('user_id', $user->id)
+                            ->where('status', 'completed')
+                            ->get();
+
+        return view('customer.appointments.completed-appointments', compact('appointments'));
     }
 
 
@@ -22,8 +46,8 @@ class AppointmentController extends Controller
         return view('customer.appointments.show', ['appointment' => $appointment]);
     }
 
-    // Show Step 1: Vehicle Info
-    public function showStepOne(Request $request) {
+     // Show Step 1: Vehicle Info
+     public function showStepOne(Request $request) {
         $appointment = $request->session()->get('appointment', []);
         return view('customer.appointments.step-one', ['appointment' => $appointment]);
     }
@@ -37,13 +61,15 @@ class AppointmentController extends Controller
             'odometer' => 'required|string',
         ]);
 
+        // Add the user_id (authenticated user) to the session data
         $validatedData['user_id'] = Auth::user()->id;
+
+        // Retrieve the existing session data and merge it with the new data
         $appointment = $request->session()->get('appointment', []);
         $appointment = array_merge($appointment, $validatedData);
         $request->session()->put('appointment', $appointment);
 
-
-
+        // Redirect to the next step
         return redirect('/customer/appointments/step-two');
     }
 
@@ -60,14 +86,16 @@ class AppointmentController extends Controller
             'note' => 'nullable|string',
         ]);
 
+        // Retrieve the existing session data and merge it with the new data
         $appointment = $request->session()->get('appointment', []);
         $appointment = array_merge($appointment, $validatedData);
         $request->session()->put('appointment', $appointment);
 
+        // Redirect to the next step
         return redirect('/customer/appointments/step-three');
     }
 
-    // Show Step 3: Details
+    // Show Step 3: Customer Details
     public function showStepThree(Request $request) {
         $appointment = $request->session()->get('appointment', []);
         return view('customer.appointments.step-three', ['appointment' => $appointment]);
@@ -84,10 +112,12 @@ class AppointmentController extends Controller
             'appointment_date' => 'required|date',
         ]);
 
+        // Retrieve the existing session data and merge it with the new data
         $appointment = $request->session()->get('appointment', []);
         $appointment = array_merge($appointment, $validatedData);
         $request->session()->put('appointment', $appointment);
 
+        // Redirect to the confirmation step
         return redirect('/customer/appointments/confirmation');
     }
 
@@ -101,21 +131,51 @@ class AppointmentController extends Controller
     public function storeConfirmation(Request $request) {
         $appointment = $request->session()->get('appointment');
 
-
         if ($appointment) {
-            // Save to the database
+            // Add user_id and customer_id if not set
             if (!isset($appointment['user_id'])) {
                 $appointment['user_id'] = Auth::user()->id;
             }
+            if (!isset($appointment['customer_id'])) {
+                $appointment['customer_id'] = Auth::user()->id;
+            }
 
-            Appointment::create($appointment); // Ensure $appointment matches the model fillable attributes
+            // Create Customer
+            $customer = Customer::create([
+                'first_name' => $appointment['first_name'],
+                'last_name' => $appointment['last_name'],
+                'phone' => $appointment['phone'],
+                'email' => $appointment['email'],
+                'address' => $appointment['address'],
+            ]);
 
-            // Forget session data
+            // Create Vehicle
+            $vehicle = Vehicle::create([
+                'customer_id' => $customer->id,
+                'model' => $appointment['model'],
+                'year' => $appointment['year'],
+                'transmission' => $appointment['transmission'],
+                'odometer' => $appointment['odometer'],
+            ]);
+
+            // Create Appointment
+            Appointment::create([
+                'user_id' => Auth::user()->id,  // Set the currently authenticated user
+                'customer_id' => $customer->id,
+                'vehicle_id' => $vehicle->id,
+                'services' => $appointment['services'],
+                'note' => $appointment['note'],
+                'appointment_date' => $appointment['appointment_date'],
+            ]);
+
+            // Forget session data after successful appointment creation
             $request->session()->forget('appointment');
 
+            // Redirect to the appointment index page with success message
             return redirect('/customer/appointments/index')->with('success', 'Appointment booked successfully.');
         }
 
+        // If no appointment data exists in the session, redirect back to step 1
         return redirect('/customer/appointments/step-one');
     }
 }
