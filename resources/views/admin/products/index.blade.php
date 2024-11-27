@@ -38,7 +38,7 @@
                     @foreach ($products as $index => $product)
                         <tr class="{{ $loop->last ? '' : 'border-b border-stroke dark:border-strokedark' }}">
                             <td class="p-2.5 text-center xl:p-5">
-                                <p class="font-medium text-black dark:text-white">{{ $index + 1 }}</p>
+                                <p class="font-medium text-black dark:text-white">{{ $products->firstItem() + $index }}</p>
                             </td>
                             <td class="p-2.5 text-center xl:p-5">
                                 @if($product->photo)
@@ -82,5 +82,10 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="mt-6">
+            {{ $products->links() }}
+        </div>
+
     </div>
 </x-app-layout>
