@@ -5,7 +5,7 @@
         </h4>
 
         <div class="flex flex-col">
-            <div class="grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-7">
+            <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 rounded-sm bg-gray-2 dark:bg-meta-4">
                 <div class="p-2.5 text-center xl:p-5">
                     <h5 class="text-sm font-medium uppercase xsm:text-base">APT. NO.</h5>
                 </div>
@@ -30,16 +30,12 @@
             </div>
 
             @foreach ($appointments as $index => $appointment)
-            <div class="grid grid-cols-3 sm:grid-cols-7  {{ $loop->last ? '' : 'border-b border-stroke dark:border-strokedark' }}">
-                    <div class="flex r items-center justify-center p-2.5 xl:p-5">
+            <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 {{ $loop->last ? '' : 'border-b border-stroke dark:border-strokedark' }}">
+                    <div class="flex items-center justify-center p-2.5 xl:p-5">
                         <p class="hidden font-medium text-black dark:text-white sm:block">
                             {{ $appointment->id }}
                         </p>
                     </div>
-
-                    <!-- <div class="flex items-center justify-center p-2.5 xl:p-5">
-                        <p class="font-medium text-black dark:text-white">{{ $appointment->title }}</p>
-                    </div> -->
 
                     <div class="flex items-center justify-center p-2.5 xl:p-5">
                         <p class="font-medium text-black dark:text-white">{{ $appointment->appointment_date->format('M d, Y') }}</p>
@@ -57,7 +53,7 @@
                         <p class="font-medium text-black dark:text-white">{{ $appointment->customer->phone }}</p>
                     </div>
 
-                    <div class="flex items-center justify-center p-2.5 xl:p-5 ">
+                    <div class="flex items-center justify-center p-2.5 xl:p-5">
                         @if ($appointment->status === 'pending')
                             <span class="inline-block rounded-full px-3 py-1 text-sm font-medium text-yellow-500 bg-yellow-100 dark:bg-yellow-900">
                                 {{ $appointment->status }}
@@ -95,7 +91,7 @@
 
                             <!-- Dropdown Start -->
                             <div x-show="dropdownOpen" class="absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                                <form method="POST" action="{{ route('appointments.updateStatus', ['appointment' => $appointment->id]) }}" class="inline">
+                                <form method="POST" action="{{ route('appointments.updateStatus', ['appointment' => $appointment->id]) }}" class="inline"></form>
                                     @csrf
                                     @method('POST')
                                     <input type="hidden" name="status" value="pending">

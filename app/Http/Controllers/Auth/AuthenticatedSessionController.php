@@ -34,7 +34,7 @@ class AuthenticatedSessionController extends Controller
         if($authUserRole == 1) {
             return redirect()->intended(route('dashboard', absolute:false));
         } else{
-            return redirect()->intended(route('customer.home', absolute:false));
+            return redirect()->intended(route('welcome', absolute:false));
         }
     }
 

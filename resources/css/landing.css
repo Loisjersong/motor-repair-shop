@@ -697,6 +697,11 @@ h6 {
   font-size: 13px;
 }
 
+.footer {
+    background-color: #242424;
+    color: #ffffff;
+}
+
 /*--------------------------------------------------------------
 # Preloader
 --------------------------------------------------------------*/
@@ -1703,6 +1708,80 @@ section,
   padding: 0;
   color: color-mix(in srgb, var(--default-color), transparent 30%);
 }
+
+
+/*--------------------------------------------------------------
+# Customer Appointment Section
+--------------------------------------------------------------*/
+.appointment {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+  }
+
+  .appointment img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+
+  .appointment:before {
+    content: "";
+    background: color-mix(in srgb, var(--background-color), transparent 30%);
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+  }
+
+  .appointment .container {
+    position: relative;
+    z-index: 3;
+  }
+
+  .appointment h2 {
+    background: #cc1616;
+    color: black;
+  }
+
+  .appointment .btn-get-started {
+    color: var(--default-color);
+    font-weight: 400;
+    font-size: 15px;
+    display: inline-block;
+    padding: 8px 30px;
+    margin: 30px 0 0 0;
+    transition: 0.5s;
+    text-transform: uppercase;
+    border: 2px solid color-mix(in srgb, var(--default-color), transparent 20%);
+  }
+
+  .appointment .btn-get-started:hover {
+    color: var(--contrast-color);
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+  }
+
+  @media (max-width: 768px) {
+    .appointment h2 {
+      font-size: 32px;
+    }
+
+    .appointment p {
+      font-size: 18px;
+    }
+  }
+
+  .appointment {
+    color: black;
+  }
+
 
 /*--------------------------------------------------------------
 # Starter Section Section

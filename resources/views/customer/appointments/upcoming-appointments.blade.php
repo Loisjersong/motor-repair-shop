@@ -6,10 +6,10 @@
                 <div class="container bg-white">
                     <h2 class="px-5 py-2 font-extrabold">Appointments</h2>
                     <div class="flex justify-around text-center">
-                            <a href="/customer/appointments/index" class="tab-link text-white py-2 px-4 rounded-lg focus:outline-none w-full" style="background-color: #242424;">
+                            <a href="/customer/appointments/index" class="tab-link bg-graydark text-white py-2 px-4 rounded-lg focus:outline-none w-full">
                                 Pending Services
                             </a>
-                            <a href="/customer/appointments/approved" class="tab-link bg-graydark text-white py-2 px-4 rounded-lg focus:outline-none w-full">
+                            <a href="/customer/appointments/approved" class="tab-link text-white py-2 px-4 rounded-lg focus:outline-none w-full" style="background-color: #242424;">
                                 Upcoming Services
                             </a>
                             <a href="/customer/appointments/completed" class="tab-link bg-graydark text-white py-2 px-4 rounded-lg focus:outline-none w-full">

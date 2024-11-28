@@ -2,13 +2,13 @@
     <div class="branding w-full flex">
 
         <div class="relative flex items-center justify-between w-full">
-            <a href="index.html" class="logo container flex items-center pl-2">
+            <a href="/" class="logo container flex items-center pl-2">
                 <h1 class="sitename">4M MOTORSHOP</h1>
             </a>
 
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><a href="#hero" class="active">Home</a></li>
+                    <li><a href="#hero">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#services">Services</a></li>
                     <li class="dropdown">
@@ -18,9 +18,14 @@
                                 @if(Auth::user()->role_id == 1)
                                     <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
                                 @else
-                                    <li><a href="#">My Appointments</a></li>
+                                    <li><a href="{{ route('customer.appointments.index')}}">My Appointments</a></li>
                                 @endif
-                                <li><a href="{{ route('logout') }}">Log out</a></li>
+                                <li>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log out</a>
+                                </li>
                             @else
                                 <li><a href="{{ route('login') }}">Login</a></li>
                                 <li><a href="{{ route('register') }}">Register</a></li>

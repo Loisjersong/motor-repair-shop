@@ -13,7 +13,7 @@ use App\Http\Controllers\Customer\AppointmentController as CustomerAppointmentCo
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/customer/home', [MainCustomerController::class, 'index'])
     ->middleware(['auth', 'rolemiddleware:customer'])
@@ -91,6 +91,9 @@ Route::middleware('auth', 'verified', 'rolemiddleware:customer')->group(function
         Route::post('/customer/appointments/confirmation', 'storeConfirmation')->name('customer.appointments.confirmation.post');
 
         Route::get('/customer/appointments/index', 'index')->name('customer.appointments.index');
+        Route::get('/customer/appointments/approved', 'approved')->name('customer.appointments.approved');
+        Route::get('/customer/appointments/completed', 'completed')->name('customer.appointments.completed');
+
         Route::get('/customer/appointments/{appointment}', 'show')->name('customer.appointments.show');
     });
 });

@@ -33,7 +33,7 @@ class RoleMiddleware
             case 1:
                 return redirect()->route('dashboard');
             case 2:
-                return redirect()->route('customer.home');
+                return redirect()->route('welcome');
         }
 
         return redirect()->route('login');

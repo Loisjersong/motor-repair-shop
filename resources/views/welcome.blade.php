@@ -36,7 +36,9 @@
                         <h2>Welcome to 4M Motor Repair</h2>
                         <p>Your trusted motor repair shop for reliable and professional service. From maintenance to
                             major repairs, we've got you covered. Schedule your appointment today!</p>
-                        <a href="#about" class="btn-get-started">Book Now</a>
+                        <form action="{{ route('customer.appointments.step-one') }}" method="get">
+                            <button type="submit" class="btn-get-started">Book Now</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -370,7 +372,7 @@
     <a href="#" id="scroll-top" class="scroll-top flex items-center justify-center bg-gray-800 text-white p-2 rounded-full fixed bottom-4 right-4"><i class="bi bi-arrow-up-short"></i></a>
 
     <!-- Preloader -->
-  <!-- <div id="preloader"></div> -->
+    <div id="preloader"></div>
 
 
             @if (session('success'))
