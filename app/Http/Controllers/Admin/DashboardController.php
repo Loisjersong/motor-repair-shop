@@ -16,6 +16,8 @@ class DashboardController extends Controller
         $categoryCount = Category::count();
         $userCount = User::count();
         $appointmentCount = Appointment::count();
-        return view('admin.dashboard', ['userCount' => $userCount, 'categoryCount' => $categoryCount, 'userCount' => $userCount, 'appointmentCount' => $appointmentCount, 'productCount' => $productCount]);
+
+        $products = Product::latest()->take(5)->get();
+        return view('admin.dashboard', ['userCount' => $userCount, 'categoryCount' => $categoryCount, 'userCount' => $userCount, 'appointmentCount' => $appointmentCount, 'productCount' => $productCount, 'products' => $products]);
     }
 }
