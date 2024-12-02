@@ -372,7 +372,7 @@
     <a href="#" id="scroll-top" class="scroll-top flex items-center justify-center bg-gray-800 text-white p-2 rounded-full fixed bottom-4 right-4"><i class="bi bi-arrow-up-short"></i></a>
 
     <!-- Preloader -->
-    <div id="preloader"></div>
+    <!-- <div id="preloader"></div> -->
 
 
             @if (session('success'))
