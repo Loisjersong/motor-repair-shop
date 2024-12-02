@@ -10,14 +10,16 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ContactSubmissionController;
 use App\Http\Controllers\Customer\AppointmentController as CustomerAppointmentController;
+use App\Http\Controllers\WelcomeController;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 
 Route::get('/customer/home', [MainCustomerController::class, 'index'])
     ->middleware(['auth', 'rolemiddleware:customer'])
     ->name('customer.home');
+
+Route::get('/allproducts', [WelcomeController::class, 'showAll'])->name('allproducts');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

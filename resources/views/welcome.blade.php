@@ -157,6 +157,44 @@
 
         </section><!-- /Clients Section -->
 
+      <!-- Products Section -->
+        <section id="products" class="products section py-16">
+
+            <!-- Section Title -->
+            <div class="section-title" data-aos="fade-up">
+                <span>Products</span>
+                <h2>Our Products</h2>
+            </div><!-- End Section Title -->
+
+            <div class="container mx-auto px-4">
+
+                <div class="flex flex-wrap -mx-4">
+                    @foreach($products as $product)
+                        <div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-8" data-aos="fade-up" data-aos-delay="100">
+                            <div class="product-item bg-white p-6 rounded-lg shadow-lg relative">
+                                <div class="icon text-4xl text-blue-500 mb-4">
+                                    <img src="{{ $product->photo ? asset('storage/' . $product->photo) : asset('images/placeholder.jpg') }}" alt="{{ $product->title }}" class="img-fluid">
+                                </div>
+                                <a href="#" class="stretched-link">
+                                    <h3 class="text-xl font-semibold mb-2">{{ $product->title }}</h3>
+                                </a>
+                                <p class="text-gray-600">{{ $product->brand }}</p>
+                                <p class="text-gray-800 font-bold">${{ $product->price }}</p>
+                            </div>
+                        </div><!-- End Product Item -->
+                    @endforeach
+                </div>
+
+                <!-- See More Button -->
+                <div class="text-center mt-8">
+                    <a href="/allproducts" class="btn btn-primary">See More</a>
+                </div>
+
+            </div>
+
+        </section><!-- /Products Section -->
+
+
         <!-- Services Section -->
         <section id="services" class="services section py-16">
 
