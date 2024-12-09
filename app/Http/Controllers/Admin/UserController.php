@@ -13,10 +13,24 @@ use App\Models\Role;
 
 class UserController extends Controller
 {
-    public function index() {
-        $users = User::paginate(10);
+    public function index(Request $request)
+    {
+        $query = User::query();
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('first_name', 'like', "%{$search}%")
+                ->orWhere('last_name', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+
+        $users = $query->paginate(10)->appends($request->query()); // Preserve search query in pagination links
         return view('admin.users.index', ['users' => $users]);
     }
+
+
 
     public function create()
     {
