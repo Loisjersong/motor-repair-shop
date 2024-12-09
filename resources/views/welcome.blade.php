@@ -30,14 +30,13 @@
 
             <img src="{{ asset('landing/hero-1.jpg') }}" alt="" data-aos="fade-in">
 
-            <div class="container" data-aos="fade-up" data-aos-delay="100">
-                <div class="row justify-start">
-                    <div class="col-lg-8">
-                        <h2>Welcome to 4M Motor Repair</h2>
-                        <p>Your trusted motor repair shop for reliable and professional service. From maintenance to
-                            major repairs, we've got you covered. Schedule your appointment today!</p>
+            <div class="container mx-auto px-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="flex justify-start">
+                    <div class="w-full lg:w-2/3">
+                        <h2 class="text-4xl font-bold mb-4">Welcome to 4M Motor Repair</h2>
+                        <p class="mb-6">Your trusted motor repair shop for reliable and professional service. From maintenance to major repairs, we've got you covered. Schedule your appointment today!</p>
                         <form action="{{ route('customer.appointments.step-one') }}" method="get">
-                            <button type="submit" class="btn-get-started">Book Now</button>
+                            <button type="submit" class="btn-get-started text-white py-2 px-4 rounded">Book Now</button>
                         </form>
                     </div>
                 </div>
@@ -50,12 +49,14 @@
 
             <!-- Section Title -->
             <div class="section-title w-full" data-aos="fade-up">
-                <span>About Us<br></span>
+                <div class="container mx-auto px-4">
+                    <span>About Us<br></span>
                 <h2>About Us<br></h2>
                 <p>At <strong>4M Motor Repair</strong>, we offer expert repair and maintenance services for all vehicle
                     types. With years of experience, we’re dedicated to providing fast, reliable, and high-quality
                     repairs. From engine diagnostics to oil changes and transmission servicing, our skilled technicians
                     use the latest tools to keep your vehicle in top condition.</p>
+                </div>
             </div><!-- End Section Title -->
 
             <div class="container mx-auto px-4">
