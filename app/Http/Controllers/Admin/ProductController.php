@@ -14,11 +14,29 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::paginate(10);
-        return view('admin.products.index', ['products' => $products]);
+        // Handle search and sorting
+        $query = Product::query();
+
+        // Search functionality
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('title', 'like', "%$search%");
+        }
+
+        // Sort functionality
+        $sortField = $request->input('sortField', 'id'); // Default sort by 'id'
+        $sortOrder = $request->input('sortOrder', 'asc'); // Default sort order
+
+        $query->orderBy($sortField, $sortOrder);
+
+        // Paginate results
+        $products = $query->paginate(10)->appends($request->all());
+
+        return view('admin.products.index', ['products' => $products, 'request' => $request]);
     }
+
 
     /**
      * Show the form for creating a new resource.
