@@ -48,8 +48,6 @@ class RegisteredUserController extends Controller
             'date_of_birth' => $request->date_of_birth,
         ]);
 
-        $user->assignRole('customer');
-
         event(new Registered($user));
 
         Auth::login($user);

@@ -14,7 +14,12 @@ class WelcomeController extends Controller
     }
 
     public function showAll(){
-        $products = Product::all();
+
+        if (\Illuminate\Support\Facades\Auth::check()) {
+            $products = Product::all();
+        } else {
+            $products = Product::limit(1)->get();
+        }
         return view('products', compact('products'));
     }
 }
