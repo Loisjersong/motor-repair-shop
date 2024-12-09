@@ -1,33 +1,75 @@
 <x-app-layout>
     <div class="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-        <h4 class="mb-6 text-xl font-bold text-black dark:text-white">
-            Appointments
-        </h4>
+        <div class="flex justify-between">
+            <h4 class="mb-6 text-xl font-bold text-black dark:text-white">
+                Appointments
+            </h4>
 
-        <div class="flex flex-col">
-            <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 rounded-sm bg-gray-2 dark:bg-meta-4">
-                <div class="p-2.5 text-center xl:p-5">
-                    <h5 class="text-sm font-medium uppercase xsm:text-base">APT. NO.</h5>
-                </div>
-                <div class="p-2.5 text-center xl:p-5">
-                    <h5 class="text-sm font-medium uppercase xsm:text-base">APT. DATE</h5>
-                </div>
-                <div class="p-2.5 text-center xl:p-5">
-                    <h5 class="text-sm font-medium uppercase xsm:text-base">name</h5>
-                </div>
-                <div class="p-2.5 text-center xl:p-5">
-                    <h5 class="text-sm font-medium uppercase xsm:text-base">email</h5>
-                </div>
-                <div class="p-2.5 text-center xl:p-5">
-                    <h5 class="text-sm font-medium uppercase xsm:text-base">phone</h5>
-                </div>
-                <div class="p-2.5 text-center xl:p-5">
-                    <h5 class="text-sm font-medium uppercase xsm:text-base">status</h5>
-                </div>
-                <div class="p-2.5 text-center xl:p-5">
-                    <h5 class="text-sm font-medium uppercase xsm:text-base">Action</h5>
-                </div>
+            <div class="mb- w-full text-right">
+                <form method="GET" action="{{ route('appointments.index') }}">
+                    <input
+                        type="text"
+                        name="search"
+                        value="{{ request('search') }}"
+                        placeholder="Search by ID, Name, Email, or Phone"
+                        class="border border-gray-300 rounded p-2 w-full sm:w-1/2"
+                    />
+                    <button type="submit" class="bg-blue-500 text-white rounded px-4 py-2">
+                        Search
+                    </button>
+                </form>
             </div>
+        </div>
+
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 rounded-sm bg-gray-2 dark:bg-meta-4">
+            <div class="p-2.5 text-center xl:p-5">
+                <h5 class="text-sm font-medium uppercase xsm:text-base">
+                    <a href="{{ route('appointments.index', ['sort' => 'id', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc']) }}">
+                        APT. NO.
+                    </a>
+                </h5>
+            </div>
+            <div class="p-2.5 text-center xl:p-5">
+                <h5 class="text-sm font-medium uppercase xsm:text-base">
+                    <a href="{{ route('appointments.index', ['sort' => 'appointment_date', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc']) }}">
+                        APT. DATE
+                    </a>
+                </h5>
+            </div>
+            <div class="p-2.5 text-center xl:p-5">
+                <h5 class="text-sm font-medium uppercase xsm:text-base">
+                    <a href="{{ route('appointments.index', ['sort' => 'customer_name', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc']) }}">
+                        Name
+                    </a>
+                </h5>
+            </div>
+            <div class="p-2.5 text-center xl:p-5">
+                <h5 class="text-sm font-medium uppercase xsm:text-base">
+                    <a href="{{ route('appointments.index', ['sort' => 'email', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc']) }}">
+                        Email
+                    </a>
+                </h5>
+            </div>
+            <div class="p-2.5 text-center xl:p-5">
+                <h5 class="text-sm font-medium uppercase xsm:text-base">
+                    <a href="{{ route('appointments.index', ['sort' => 'phone', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc']) }}">
+                        Phone
+                    </a>
+                </h5>
+            </div>
+            <div class="p-2.5 text-center xl:p-5">
+                <h5 class="text-sm font-medium uppercase xsm:text-base">
+                    <a href="{{ route('appointments.index', ['sort' => 'status', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc']) }}">
+                        Status
+                    </a>
+                </h5>
+            </div>
+            <div class="p-2.5 text-center xl:p-5">
+                <h5 class="text-sm font-medium uppercase xsm:text-base">Action</h5>
+            </div>
+        </div>
+
 
             @foreach ($appointments as $index => $appointment)
             <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 {{ $loop->last ? '' : 'border-b border-stroke dark:border-strokedark' }}">
@@ -126,7 +168,7 @@
         </div>
 
         <div class="mt-6">
-            {{ $appointments->links() }}
+            {{ $appointments->appends(request()->except('page'))->links() }}
         </div>
     </div>
 </x-app-layout>

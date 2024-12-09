@@ -10,10 +10,44 @@ use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
 {
-    public function index() {
-        $appointments = Appointment::with('customer', 'vehicle')->paginate(10); // Eager load relationships
+    public function index(Request $request) {
+        $query = Appointment::with('customer', 'vehicle');
+
+        // Search filter
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('id', 'like', "%{$search}%")
+                  ->orWhereHas('customer', function ($customerQuery) use ($search) {
+                      $customerQuery->where('first_name', 'like', "%{$search}%")
+                                    ->orWhere('last_name', 'like', "%{$search}%")
+                                    ->orWhere('email', 'like', "%{$search}%")
+                                    ->orWhere('phone', 'like', "%{$search}%");
+                  });
+            });
+        }
+
+        // Sorting
+        if ($request->has('sort') && $request->has('direction')) {
+            $sort = $request->input('sort');
+            $direction = $request->input('direction');
+
+            if (in_array($sort, ['id', 'appointment_date', 'status']) || $sort === 'customer_name') {
+                if ($sort === 'customer_name') {
+                    $query->join('customers', 'appointments.customer_id', '=', 'customers.id')
+                          ->orderBy('customers.first_name', $direction)
+                          ->orderBy('customers.last_name', $direction);
+                } else {
+                    $query->orderBy($sort, $direction);
+                }
+            }
+        }
+
+        $appointments = $query->paginate(10);
+
         return view('admin.appointments.index', ['appointments' => $appointments]);
     }
+
 
     public function show(Appointment $appointment) {
         return view('admin.appointments.show', ['appointment' => $appointment]);
