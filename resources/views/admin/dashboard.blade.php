@@ -182,7 +182,7 @@
                     <div class="col-span-3 flex items-center">
                         <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
                             <div class="h-12.5 w-15 rounded-md">
-                                <img src="{{ asset('storage/' . $product->photo) }}" alt="Product" />
+                                <img src="{{ $product->photo ? (Str::startsWith($product->photo, 'products/') ? asset($product->photo) : asset('storage/' . $product->photo)) : asset('images/placeholder.jpg') }}" alt="{{ $product->title }}">
                             </div>
                             <p class="text-sm font-medium text-black dark:text-white">
                                 {{ $product->title }}

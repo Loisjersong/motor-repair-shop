@@ -66,7 +66,8 @@
                             </td>
                             <td class="p-2.5 text-center xl:p-5">
                                 @if($product->photo)
-                                    <img src="{{ asset('storage/' . $product->photo) }}" alt="{{ $product->title }}" width="50">
+                                <img src="{{ $product->photo ? (Str::startsWith($product->photo, 'products/') ? asset($product->photo) : asset('storage/' . $product->photo)) : asset('images/placeholder.jpg') }}" alt="{{ $product->title }}" width="50">
+
                                 @endif
                             </td>
                             <td class="p-2.5 text-center xl:p-5">

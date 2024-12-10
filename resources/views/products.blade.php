@@ -69,7 +69,8 @@
                         <div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-8" data-aos="fade-up" data-aos-delay="100">
                             <div class="product-item bg-white p-6 rounded-lg shadow-lg relative">
                                 <div class="icon text-4xl text-blue-500 mb-4">
-                                    <img src="{{ $product->photo ? asset('storage/' . $product->photo) : asset('images/placeholder.jpg') }}" alt="{{ $product->title }}" class="img-fluid">
+                                    <img src="{{ $product->photo ? (Str::startsWith($product->photo, 'products/') ? asset($product->photo) : asset('storage/' . $product->photo)) : asset('images/placeholder.jpg') }}" alt="{{ $product->title }}" class="img-fluid">
+
                                 </div>
                                 <a href="#" class="stretched-link">
                                     <h3 class="text-xl font-semibold mb-2">{{ $product->title }}</h3>
