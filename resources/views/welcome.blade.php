@@ -55,8 +55,8 @@
                 <div class="container mx-auto px-4">
                     <span>About Us<br></span>
                 <h2>About Us<br></h2>
-                <p>At <strong>4M Motor Repair</strong>, we offer expert repair and maintenance services for all vehicle
-                    types. With years of experience, we’re dedicated to providing fast, reliable, and high-quality
+                <p>At <strong>4M Motor Repair</strong>, we offer expert repair and maintenance services for all motorcycle vehicle
+                    . With years of experience, we’re dedicated to providing fast, reliable, and high-quality
                     repairs. From engine diagnostics to oil changes and transmission servicing, our skilled technicians
                     use the latest tools to keep your vehicle in top condition.</p>
                 </div>
