@@ -8,9 +8,9 @@
 
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><a href="#hero">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#services">Services</a></li>
+                    <li><a href="{{ request()->routeIs('welcome') ? '#hero' : '/' }}">Home</a></li>
+                    <li><a href="{{ request()->routeIs('welcome') ? '#about' : '/' }}">About</a></li>
+                    <li><a href="{{ request()->routeIs('welcome') ? '#services' : '/' }}">Services</a></li>
                     <li class="dropdown">
                         <a class="toggle-dropdown"><span>{{ Auth::check() ? 'My Account' : 'Account' }}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                         <ul>
@@ -19,6 +19,7 @@
                                     <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
                                 @else
                                     <li><a href="{{ route('customer.appointments.index')}}">My Appointments</a></li>
+                                    <li><a href="{{route('customer.profile.edit')}}">Edit Profile</a></li>
                                 @endif
                                 <li>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -32,7 +33,7 @@
                             @endif
                         </ul>
                     </li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="{{ request()->routeIs('welcome') ? '#contact' : '/' }}">Contact</a></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list lg:hidden"></i>
             </nav>

@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ContactSubmissionController;
 use App\Http\Controllers\Customer\AppointmentController as CustomerAppointmentController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\Customer\UserController as CustomerUserController;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 
@@ -98,7 +99,13 @@ Route::middleware('auth', 'verified', 'rolemiddleware:customer')->group(function
 
         Route::get('/customer/appointments/{appointment}', 'show')->name('customer.appointments.show');
     });
+
+    Route::controller(CustomerUserController::class)->group(function() {
+        Route::get('/customer/profile/edit', 'edit')->name('customer.profile.edit');
+        Route::put('/customer/profile', 'update')->name('customer.profile.update');
+    });
 });
+
 
 Route::post('/contact', [ContactSubmissionController::class, 'send'])->name('contact.send');
 

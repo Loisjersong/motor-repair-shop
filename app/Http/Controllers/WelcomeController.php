@@ -16,9 +16,9 @@ class WelcomeController extends Controller
     public function showAll(){
 
         if (\Illuminate\Support\Facades\Auth::check()) {
-            $products = Product::all();
+            $products = Product::inRandomOrder()->get();
         } else {
-            $products = Product::limit(1)->get();
+            $products = Product::all();
         }
         return view('products', compact('products'));
     }

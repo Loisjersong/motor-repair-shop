@@ -3,10 +3,10 @@
 @section('content')
     <main class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
         <div class="flex justify-center px-4 md:px-20 lg:px-40 mt-10">
-                <div class="container bg-white">
-                    <h2 class="px-5 py-2 font-extrabold">Appointments</h2>
-                    <div class="flex justify-around text-center">
-                            <a href="/customer/appointments/index" class="tab-link text-white py-2 px-4 rounded-lg focus:outline-none w-full" style="background-color: #242424;">
+            <div class="container bg-white shadow-lg rounded-lg">
+                <h2 class="px-5 py-4 font-extrabold text-2xl border-b">Appointments</h2>
+                <div class="flex justify-around text-center my-4">
+                    <a href="/customer/appointments/index" class="tab-link text-white py-2 px-4 rounded-lg focus:outline-none w-full bg-blue-600 hover:bg-blue-700 transition duration-300">
                                 Pending Services
                             </a>
                             <a href="/customer/appointments/approved" class="tab-link bg-graydark text-white py-2 px-4 rounded-lg focus:outline-none w-full">
