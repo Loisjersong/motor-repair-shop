@@ -30,7 +30,10 @@
 
                         <div>
                             <x-form-label for="transmission">Transmission</x-form-label>
-                            <x-form-input type="text" name="transmission" id="transmission"></x-form-input>
+                            <x-form-select name="transmission" id="transmission">
+                            <option value="CVT">CVT</option>
+                            <option value="Chain Drive">Chain Drive</option>
+                        </x-form-select>
                             <x-input-error :messages="$errors->get('transmission')"></x-input-error>
                         </div>
 
@@ -48,7 +51,9 @@
                             <x-input-error :messages="$errors->get('odometer')"></x-input-error>
                         </div>
 
-                        <x-button type="submit" class="w-full">Next</x-button>
+                        <button class="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90" type="submit">
+                            Next
+                        </button>
                     </div>
                 </div>
             </form>

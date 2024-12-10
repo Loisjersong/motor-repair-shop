@@ -128,8 +128,10 @@
                 <x-input-error :messages="$errors->get('note')" />
             </div>
             </div>
+            <button class="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90" type="submit">
+                Next
+            </button>
         </div>
-        <x-button type="submit" class="w-full"> Next </x-button>
     </form>
 </x-container>
 
