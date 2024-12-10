@@ -26,6 +26,9 @@
                                 #
                             </a>
                         </th>
+                        <th class="p-2.5 text-center xl:p-5">
+                            <h5 class="text-sm font-medium uppercase xsm:text-base">Photo</h5>
+                        </th>
                         <th class="p-2.5 text-center xl:p-5 cursor-pointer">
                             <a href="{{ route('products.index', array_merge(request()->all(), ['sortField' => 'title', 'sortOrder' => request('sortOrder') === 'asc' ? 'desc' : 'asc'])) }}">
                                 Title
@@ -57,8 +60,14 @@
                 <tbody>
                     @foreach ($products as $index => $product)
                         <tr class="{{ $loop->last ? '' : 'border-b border-stroke dark:border-strokedark' }}">
+
                             <td class="p-2.5 text-center xl:p-5">
                                 <p class="font-medium text-black dark:text-white">{{ $products->firstItem() + $index }}</p>
+                            </td>
+                            <td class="p-2.5 text-center xl:p-5">
+                                @if($product->photo)
+                                    <img src="{{ asset('storage/' . $product->photo) }}" alt="{{ $product->title }}" width="50">
+                                @endif
                             </td>
                             <td class="p-2.5 text-center xl:p-5">
                                 <p class="font-medium text-black dark:text-white">{{ $product->title }}</p>
@@ -73,7 +82,7 @@
                                 <p class="font-medium text-black dark:text-white">{{ $product->in_stock }}</p>
                             </td>
                             <td class="p-2.5 text-center xl:p-5">
-                                <p class="font-medium text-black dark:text-white">${{ number_format($product->price, 2) }}</p>
+                                <p class="font-medium text-black dark:text-white">₱{{ number_format($product->price, 2) }}</p>
                             </td>
                             <td class="p-2.5 text-center xl:p-5 space-x-3.5 flex">
                                 <a class="hover:text-primary" href="{{ route('products.edit', $product->id) }}">
