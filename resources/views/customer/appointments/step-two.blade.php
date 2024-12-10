@@ -19,7 +19,7 @@
                 </label>
 
                 <div class="border-none">
-                    <select class="hidden" x-cloak id="select">
+                    <select class="hidden" x-cloak id="select" size="5" style="overflow-y: auto;">
                         <option value="Change Oil">Change Oil</option>
                         <option value="Tune Up">Tune Up</option>
                         <option value="Tire Pressure Check">Tire Pressure Check</option>
@@ -95,7 +95,7 @@
                                 </div>
                                 <div class="w-full px-4">
                                     <div x-show.transition.origin.top="isOpen()"
-                                        class="max-h-select absolute top-full left-0 z-40 w-full overflow-y-auto rounded bg-white shadow dark:bg-form-input"
+                                        class="max-h-select absolute top-full left-0 z-40 w-full max-h-60 overflow-y-auto rounded bg-white shadow dark:bg-form-input"
                                         @click.outside="close">
                                         <div class="flex w-full flex-col">
                                             <template x-for="(option,index) in options" :key="index">
