@@ -132,8 +132,8 @@
                             </a>
 
                             <!-- Dropdown Start -->
-                            <div x-show="dropdownOpen" class="absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                                <form method="POST" action="{{ route('appointments.updateStatus', ['appointment' => $appointment->id]) }}" class="inline"></form>
+                            <div x-show="dropdownOpen" class="absolute top-0 right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark" style="z-index: 1000;">
+                                <form method="POST" action="{{ route('appointments.updateStatus', ['appointment' => $appointment->id]) }}" class="inline">
                                     @csrf
                                     @method('POST')
                                     <input type="hidden" name="status" value="pending">
