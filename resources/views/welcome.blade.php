@@ -183,7 +183,7 @@
                                     <h3 class="text-xl font-semibold mb-2">{{ $product->title }}</h3>
                                 </a>
                                 <p class="text-gray-600">{{ $product->brand }}</p>
-                                <p class="text-gray-800 font-bold">${{ $product->price }}</p>
+                                <p class="text-gray-800 font-bold">₱{{ $product->price }}</p>
                             </div>
                         </div><!-- End Product Item -->
                     @endforeach
@@ -191,7 +191,7 @@
 
                 <!-- See More Button -->
                 <div class="text-center mt-8">
-                    <a href="/allproducts" class="btn btn-primary">See More</a>
+                    <a href="/allproducts" class="btn-get-started bg-red-500 text-white py-2 px-6 rounded-full">See More</a>
                 </div>
 
             </div>

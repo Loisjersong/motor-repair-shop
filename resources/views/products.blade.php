@@ -32,8 +32,38 @@
                 <h2>Our Products</h2>
             </div><!-- End Section Title -->
 
-            <div class="container mx-auto px-4">
+            <!-- Search and Category Filter -->
+            <div class="container mx-auto px-4 mb-8">
+                <form method="GET" action="{{ route('allproducts') }}" class="flex flex-wrap items-center">
+                    <!-- Search Bar -->
+                    <div class="w-full md:w-1/2 px-4 mb-4 md:mb-0">
+                        <input type="text" name="search" placeholder="Search by name or brand" value="{{ request('search') }}"
+                               class="w-full p-3 rounded border border-gray-300">
+                    </div>
 
+                    <!-- Category Dropdown -->
+                    <div class="w-full md:w-1/4 px-4 mb-4 md:mb-0">
+                        <select name="category" class="w-full p-3 rounded border border-gray-300">
+                            <option value="">All Categories</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->name }}"
+                                    {{ request('category') == $category->name ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="w-full md:w-1/4 px-4">
+                        <button type="submit" class="bg-blue-500 text-white py-3 px-6 rounded hover:bg-blue-600">
+                            Filter
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="container mx-auto px-4">
                 <div class="flex flex-wrap -mx-4">
                     @foreach($products as $product)
                         <div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-8" data-aos="fade-up" data-aos-delay="100">
@@ -45,20 +75,15 @@
                                     <h3 class="text-xl font-semibold mb-2">{{ $product->title }}</h3>
                                 </a>
                                 <p class="text-gray-600">{{ $product->brand }}</p>
-                                <p class="text-gray-800 font-bold">${{ $product->price }}</p>
+                                <p class="text-gray-800 font-bold">₱{{ $product->price }}</p>
                             </div>
                         </div><!-- End Product Item -->
                     @endforeach
                 </div>
-
-                <!-- See More Button -->
-                <div class="text-center mt-8">
-                    <a href="/allproducts" class="btn btn-primary">See More</a>
-                </div>
-
             </div>
 
         </section><!-- /Products Section -->
+
 
     </main>
 

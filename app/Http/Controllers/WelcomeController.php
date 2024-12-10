@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 
 class WelcomeController extends Controller
 {
@@ -13,13 +14,32 @@ class WelcomeController extends Controller
         return view('welcome', compact('products'));
     }
 
-    public function showAll(){
+    public function showAll(Request $request)
+    {
+        $query = Product::query();
 
-        if (\Illuminate\Support\Facades\Auth::check()) {
-            $products = Product::inRandomOrder()->get();
-        } else {
-            $products = Product::all();
+        // Search through title and brand
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where('title', 'like', "%$search%")
+                ->orWhere('brand', 'like', "%$search%");
         }
-        return view('products', compact('products'));
+
+        // Filter by category
+        if ($request->filled('category')) {
+            $category = $request->input('category');
+            $query->whereHas('category', function ($q) use ($category) {
+                $q->where('name', $category);
+            });
+        }
+
+        // Auth-based product fetching
+        $products = \Illuminate\Support\Facades\Auth::check() ? $query->inRandomOrder()->get() : $query->get();
+
+        // Get all categories for the dropdown
+        $categories = Category::all();
+
+        return view('products', compact('products', 'categories'));
     }
+
 }
