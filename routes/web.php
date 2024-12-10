@@ -98,6 +98,8 @@ Route::middleware('auth', 'verified', 'rolemiddleware:customer')->group(function
         Route::get('/customer/appointments/completed', 'completed')->name('customer.appointments.completed');
 
         Route::get('/customer/appointments/{appointment}', 'show')->name('customer.appointments.show');
+        Route::post('/appointments/{id}/cancel',  'cancel')->name('customer.appointments.cancel');
+
     });
 
     Route::controller(CustomerUserController::class)->group(function() {

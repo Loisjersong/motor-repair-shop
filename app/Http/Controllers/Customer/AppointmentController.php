@@ -178,4 +178,18 @@ class AppointmentController extends Controller
         // If no appointment data exists in the session, redirect back to step 1
         return redirect('/customer/appointments/step-one');
     }
+
+    public function cancel($id)
+    {
+        // Retrieve the appointment by its ID
+        $appointment = Appointment::findOrFail($id);
+
+        // Update the status to 'canceled'
+        $appointment->status = 'canceled';
+        $appointment->save();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Appointment has been canceled.');
+    }
+
 }
