@@ -21,23 +21,23 @@ class Product extends Model
         'photo'
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
+    // protected static function boot()
+    // {
+    //     parent::boot();
 
-        static::created(function($product) {
-            $product->logHistory('created');
-        });
+    //     static::created(function($product) {
+    //         $product->logHistory('created');
+    //     });
 
-        static::updated(function($product) {
-            $product->logHistory('updated');
-        });
+    //     static::updated(function($product) {
+    //         $product->logHistory('updated');
+    //     });
 
-        static::deleted(function($product) {
-            $product->logHistory('deleted');
-        });
+    //     static::deleted(function($product) {
+    //         $product->logHistory('deleted');
+    //     });
 
-    }
+    // }
 
     public function logHistory($action)
     {
